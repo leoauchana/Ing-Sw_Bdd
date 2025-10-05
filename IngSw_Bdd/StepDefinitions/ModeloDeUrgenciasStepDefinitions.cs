@@ -1,120 +1,120 @@
 using IngSw_Bdd.Domain.DbTest;
 using IngSw_Bdd.Domain.Entities;
 using IngSw_Bdd.Services.Interfaces;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using Reqnroll;
+using System;
 
-
-namespace IngSw_Bdd.StepDefinitions;
-
-[Binding]
-public class ModeloDeUrgenciasStepDefinitions
+namespace IngSw_Bdd.StepDefinitions
 {
-    private readonly IDBTestInMemory _dbTest;
-    private readonly IEmergencyModule _emergencyModule;
-    private Nurse? _nurse;
-
-    public ModeloDeUrgenciasStepDefinitions(IDBTestInMemory dbTest, IEmergencyModule emergencyModule)
+    [Binding]
+    public class ModeloDeUrgenciasStepDefinitions
     {
-        _dbTest = dbTest;
-        _emergencyModule = emergencyModule;
-    }
+        private readonly IDBTestInMemory _dbTest;
+        private readonly IEmergencyModule _emergencyModule;
+        private Nurse? _nurse;
+        private Patient? _patient;
 
-    // Scenary 1
-
-    [Given("que la siguiente enfermera esta registrada:")]
-    public void GivenQueLaSiguienteEnfermeraEstaRegistrada(DataTable dataTable)
-    {
-        _nurse = dataTable.CreateSet<Nurse>().FirstOrDefault();
-    }
-
-    [Given("que estan registrados los siguientes pacientes:")]
-    public void GivenQueEstanRegistradosLosSiguientesPacientes(DataTable dataTable)
-    {
-        var patients = dataTable.CreateSet<Patient>();
-        foreach(var patient in patients)
+        public ModeloDeUrgenciasStepDefinitions(IDBTestInMemory dbTest, IEmergencyModule emergencyModule)
         {
-            _dbTest.SavePatient(patient);
+            _dbTest = dbTest;
+            _emergencyModule = emergencyModule;
         }
-    }
 
-    [When("ingreso a urgencias al siguiente paciente:")]
-    public void WhenIngresoAUrgenciasAlSiguientePaciente(DataTable dataTable)
-    {
-        var data = dataTable.Rows.FirstOrDefault();
-        var cuilPatient = data!["Cuil"];
-        var temperature = double.Parse(data["Temperatura"]);
-        var report = data["Informe"];
-        var emergencyLevel = data["Nivel de Emergencia"];
-        var frequencyCardiac = double.Parse(data["Frecuencia Cardiaca"]);
-        var frequencyRespiratory= double.Parse(data["Frecuencia Respiratoria"]);
-        EmergencyLevel level = (EmergencyLevel)Enum.Parse(typeof(EmergencyLevel), emergencyLevel, true);
+        //Scenary 1
+        [Given("que la siguiente enfermera esta registrada:")]
+        public void GivenQueLaSiguienteEnfermeraEstaRegistrada(DataTable dataTable)
+        {
+            _nurse = dataTable.CreateSet<Nurse>().FirstOrDefault();
+            if (_nurse == null)
+                throw new NullReferenceException("No se obtuvieron los datos de la enferemra registrada");
+        }
 
-        _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
-            frequencyCardiac, frequencyRespiratory);
-    }
+        [Given("que estan registrados los siguientes pacientes:")]
+        public void GivenQueEstanRegistradosLosSiguientesPacientes(DataTable dataTable)
+        {
+            var patients = dataTable.CreateSet<Patient>();
+            if (patients == null)
+                throw new NullReferenceException("No se obtuvieron los datos de los pacientes registrados");
+            foreach (var patient in patients)
+            {
+                _dbTest.SavePatient(patient);
+            }
+        }
 
-    [Then("La lista de espera esta ordenada por cuil de la siguiente manera:")]
-    public void ThenLaListaDeEsperaEstaOrdenadaPorCuilDeLaSiguienteManera(DataTable dataTable)
-    {
-        var expectedCuil = dataTable.Rows.FirstOrDefault();
+        [When("ingreso a urgencias al siguiente paciente:")]
+        public void WhenIngresoAUrgenciasAlSiguientePaciente(DataTable dataTable)
+        {
+            var patientData = dataTable.Rows.FirstOrDefault();
+            if (patientData == null)
+                throw new NullReferenceException("No se obtuvieron los datos del ingreso del paciente");
+            var cuilPatient = patientData!["Cuil"];
+            var temperature = double.Parse(patientData["Temperatura"]);
+            var report = patientData["Informe"];
+            var emergencyLevel = patientData["Nivel de Emergencia"];
+            var frequencyCardiac = double.Parse(patientData["Frecuencia Cardiaca"]);
+            var frequencyRespiratory = double.Parse(patientData["Frecuencia Respiratoria"]);
+            EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
+                patientData["Nivel de Emergencia"], true, out var parsedLevel)
+                ? parsedLevel
+                : null;
+            _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                frequencyCardiac, frequencyRespiratory);
+        }
 
-        var cuilPendiente = _emergencyModule.GetIncomes()!.FirstOrDefault()!.Patient!.Cuil;
+        [Then("La lista de espera esta ordenada por cuil de la siguiente manera:")]
+        public void ThenLaListaDeEsperaEstaOrdenadaPorCuilDeLaSiguienteManera(DataTable dataTable)
+        {
+            var expectedCuil = dataTable.Rows.FirstOrDefault();
+            if (expectedCuil == null)
+                throw new NullReferenceException("No se obtuvo el cuil esperado en la cola de espera");
+            var cuilPendiente = _emergencyModule.GetIncomes()!.FirstOrDefault()!.Patient!.Cuil;
 
-        Assert.Equal(expectedCuil["Cuil"], cuilPendiente);
-    }
+            Assert.Equal(expectedCuil["Cuil"], cuilPendiente);
+        }
 
-    // Scenary 2
+        // Scenary 2
 
-    [Given("que se deben registrar un nuevo paciente con los siguientes datos: cuil, apellido, nombre, obra social.")]
-    public void GivenQueSeDebenRegistrarUnNuevoPacienteConLosSiguientesDatosCuilApellidoNombreObraSocial_()
-    {
-        throw new PendingStepException();
-    }
+        [Given("que no existe el paciente registrado")]
+        public void GivenQueNoExisteElPacienteRegistrado()
+        {
+            _patient = null;
+        }
 
-    [When("ingreso al paciente a urgencias con los siguientes datos:")]
-    public void WhenIngresoAlPacienteAUrgenciasConLosSiguientesDatos(DataTable dataTable)
-    {
-        throw new PendingStepException();
-    }
+        [When("registro al paciente a urgencias con los siguientes datos:")]
+        public void WhenRegistroAlPacienteAUrgenciasConLosSiguientesDatos(DataTable dataTable)
+        {
+            _patient = dataTable.CreateSet<Patient>().FirstOrDefault();
+            if (_patient == null)
+                throw new NullReferenceException("No se obtuvieron los datos del paciente para su registro");
+            _emergencyModule.RegisterPatient(_patient.Cuil, _patient.Apellido, _patient.Nombre, _patient.ObraSocial);
+        }
 
-    [Then("se registra al paciente nuevo")]
-    public void ThenSeRegistraAlPacienteNuevo()
-    {
-        throw new PendingStepException();
-    }
+        // Scenary 3
 
-    [Then("se agrega a la lista de espera de urgencias por cuil de la siguiente manera:")]
-    public void ThenSeAgregaALaListaDeEsperaDeUrgenciasPorCuilDeLaSiguienteManera(DataTable dataTable)
-    {
-        throw new PendingStepException();
-    }
+        [Then("se informa la falta del dato mandatario {string}")]
+        public void ThenSeInformaLaFaltaDelDatoMandatario(string message)
+        {
+            Assert.Equal(message, _emergencyModule.GetErrorMessage());
+        }
 
-    [Then("se informa la falta del dato mandatario {string}")]
-    public void ThenSeInformaLaFaltaDelDatoMandatario(string p0)
-    {
-        throw new PendingStepException();
-    }
+        [Then("La lista de espera no contendrá el cuil:")]
+        public void ThenLaListaDeEsperaNoContendraElCuil(DataTable dataTable)
+        {
+            var expectedCuil = dataTable.Rows.FirstOrDefault();
+            if (expectedCuil == null)
+                throw new NullReferenceException("No se obtuvo el cuil esperado en la cola de espera");
+            var incomesList = _emergencyModule.GetIncomes();
+            if (incomesList == null)
+                throw new NullReferenceException("La lista de ingresos es nula");
+            Assert.False(incomesList.Any(i => i.Patient.Cuil == expectedCuil["Cuil"]));
+        }
 
-    [Then("no se agrega a la lista de espera de guardia")]
-    public void ThenNoSeAgregaALaListaDeEsperaDeGuardia()
-    {
-        throw new PendingStepException();
-    }
-
-    [Then("se informa que la frecuencia respiratorio se cargo de forma incorrecta {string}")]
-    public void ThenSeInformaQueLaFrecuenciaRespiratorioSeCargoDeFormaIncorrecta(string p0)
-    {
-        throw new PendingStepException();
-    }
-
-    [Given("que esta es la lista de espera de guardia actual ordenada por nivel:")]
-    public void GivenQueEstaEsLaListaDeEsperaDeGuardiaActualOrdenadaPorNivel(DataTable dataTable)
-    {
-        throw new PendingStepException();
-    }
-
-    [Then("La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:")]
-    public void ThenLaListaDeEsperaEstaOrdenadaPorCuilConsiderandoLaPrioridadDeLaSiguienteManera(DataTable dataTable)
-    {
-        throw new PendingStepException();
+        // Scenary 4 
+        [Then("se informa que la frecuencia respiratorio se cargo de forma incorrecta {string}")]
+        public void ThenSeInformaQueLaFrecuenciaRespiratorioSeCargoDeFormaIncorrecta(string message)
+        {
+            Assert.Equal(message, _emergencyModule.GetErrorMessage());
+        }
     }
 }

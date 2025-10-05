@@ -8,8 +8,13 @@ public interface IEmergencyModule
                                     Nurse nurse,
                                     double temperature,
                                     string report,
-                                    EmergencyLevel emergencyLevel,
+                                    EmergencyLevel? emergencyLevel,
                                     double frequencyCardiac,
                                     double frequencyRespiratory);
+    void RegisterPatient(string cuil,
+                                string lastName, 
+                                string name, 
+                                string socialWork);
+    string GetErrorMessage();
     List<Income>? GetIncomes();
 }

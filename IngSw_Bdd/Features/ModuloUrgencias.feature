@@ -20,36 +20,42 @@ Scenario: Ingreso del primer paciente a la lista de espera de urgencias
 		| 20-4562556353-9 |
 
 Scenario: Ingreso de un paciente sin registro previo a la lista de espera de urgencias
-	Given que se deben registrar un nuevo paciente con los siguientes datos: cuil, apellido, nombre, obra social.
-	When ingreso al paciente a urgencias con los siguientes datos:
-		| cuil            | apellido | nombre | obra social |
-		| 20-4562556351-4 | Auchana  | Leonel | OSDE        |
-	Then se registra al paciente nuevo
-	And se agrega a la lista de espera de urgencias por cuil de la siguiente manera:
+	Given que no existe el paciente registrado
+	When registro al paciente a urgencias con los siguientes datos:
+		| Cuil            | Apellido | Nombre | ObraSocial |
+		| 20-4562556351-4 | Auchana  | Leonel | OSDE       |
+	And ingreso a urgencias al siguiente paciente:
+		| Cuil            | Informe      | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556351-4 | Tiene fiebre | Emergencia          | 39          | 70                  | 15                      |
+	Then La lista de espera esta ordenada por cuil de la siguiente manera:
 		| Cuil            |
 		| 20-4562556351-4 |
 
 Scenario: Ingreso de un paciente con datos mandatorios faltantes
 	Given que estan registrados los siguientes pacientes:
-		| cuil            | apellido | nombre | obra social   |
+		| Cuil            | Apellido | Nombre | ObraSocial    |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
-		| cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Tiene gripe |                     | 38          | 70                  | 15                      |
+		| Cuil           | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556353- | Tiene gripe |                     | 38          | 70                  | 15                      |
 	Then se informa la falta del dato mandatario "Ingresar Nivel de Emergencia"
-	And no se agrega a la lista de espera de guardia
+	And La lista de espera no contendrá el cuil:
+		| Cuil            |
+		| 20-4562556353-9 |
 
 Scenario: Ingreso de un paciente frecuencia respiratoria negativa
 	Given que estan registrados los siguientes pacientes:
-		| cuil            | apellido | nombre | obra social   |
+		| Cuil            | Apellido | Nombre | ObraSocial    |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
-		| cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| Cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
 		| 20-4562556353-9 | Tiene gripe | Emergencia          | 38          | 70                  | -15                     |
 	Then se informa que la frecuencia respiratorio se cargo de forma incorrecta "La frecuencia respiratoria no puede ser un valor negativo"
-	And no se agrega a la lista de espera de guardia
+	And La lista de espera no contendrá el cuil:
+		| Cuil            |
+		| 20-4562556353-9 |
 
 Scenario: Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:

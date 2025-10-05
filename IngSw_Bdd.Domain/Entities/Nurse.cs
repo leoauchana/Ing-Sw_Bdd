@@ -2,6 +2,6 @@
 
 public class Nurse
 {
-    public string? Name { get; set; }
-    public string? LastName { get; set; }
+    public string? Nombre { get; set; }
+    public string? Aepllido { get; set; }
 }

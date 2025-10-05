@@ -197,31 +197,44 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 23
- await testRunner.GivenAsync("que se deben registrar un nuevo paciente con los siguientes datos: cuil, apellido" +
-                        ", nombre, obra social.", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("que no existe el paciente registrado", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
                 global::Reqnroll.Table table5 = new global::Reqnroll.Table(new string[] {
-                            "cuil",
-                            "apellido",
-                            "nombre",
-                            "obra social"});
+                            "Cuil",
+                            "Apellido",
+                            "Nombre",
+                            "ObraSocial"});
                 table5.AddRow(new string[] {
                             "20-4562556351-4",
                             "Auchana",
                             "Leonel",
                             "OSDE"});
 #line 24
- await testRunner.WhenAsync("ingreso al paciente a urgencias con los siguientes datos:", ((string)(null)), table5, "When ");
-#line hidden
-#line 27
- await testRunner.ThenAsync("se registra al paciente nuevo", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.WhenAsync("registro al paciente a urgencias con los siguientes datos:", ((string)(null)), table5, "When ");
 #line hidden
                 global::Reqnroll.Table table6 = new global::Reqnroll.Table(new string[] {
-                            "Cuil"});
+                            "Cuil",
+                            "Informe",
+                            "Nivel de Emergencia",
+                            "Temperatura",
+                            "Frecuencia Cardiaca",
+                            "Frecuencia Respiratoria"});
                 table6.AddRow(new string[] {
+                            "20-4562556351-4",
+                            "Tiene fiebre",
+                            "Emergencia",
+                            "39",
+                            "70",
+                            "15"});
+#line 27
+ await testRunner.AndAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table6, "And ");
+#line hidden
+                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
+                            "Cuil"});
+                table7.AddRow(new string[] {
                             "20-4562556351-4"});
-#line 28
- await testRunner.AndAsync("se agrega a la lista de espera de urgencias por cuil de la siguiente manera:", ((string)(null)), table6, "And ");
+#line 30
+ await testRunner.ThenAsync("La lista de espera esta ordenada por cuil de la siguiente manera:", ((string)(null)), table7, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -235,7 +248,7 @@ await this.FeatureBackgroundAsync();
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con datos mandatorios faltantes", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 32
+#line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -248,46 +261,50 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table7 = new global::Reqnroll.Table(new string[] {
-                            "cuil",
-                            "apellido",
-                            "nombre",
-                            "obra social"});
-                table7.AddRow(new string[] {
+                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
+                            "Cuil",
+                            "Apellido",
+                            "Nombre",
+                            "ObraSocial"});
+                table8.AddRow(new string[] {
                             "20-4562556352-3",
                             "Perez",
                             "Maria",
                             "Swiss Medical"});
-                table7.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "20-4562556353-9",
                             "Gomez",
                             "Ana",
                             "Galeno"});
-#line 33
- await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table7, "Given ");
+#line 35
+ await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table8, "Given ");
 #line hidden
-                global::Reqnroll.Table table8 = new global::Reqnroll.Table(new string[] {
-                            "cuil",
+                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
+                            "Cuil",
                             "Informe",
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
                             "Frecuencia Respiratoria"});
-                table8.AddRow(new string[] {
-                            "20-4562556353-9",
+                table9.AddRow(new string[] {
+                            "20-4562556353-",
                             "Tiene gripe",
                             "",
                             "38",
                             "70",
                             "15"});
-#line 37
- await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table8, "When ");
+#line 39
+ await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table9, "When ");
 #line hidden
-#line 40
+#line 42
  await testRunner.ThenAsync("se informa la falta del dato mandatario \"Ingresar Nivel de Emergencia\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 41
- await testRunner.AndAsync("no se agrega a la lista de espera de guardia", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
+                            "Cuil"});
+                table10.AddRow(new string[] {
+                            "20-4562556353-9"});
+#line 43
+ await testRunner.AndAsync("La lista de espera no contendrá el cuil:", ((string)(null)), table10, "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -301,7 +318,7 @@ await this.FeatureBackgroundAsync();
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente frecuencia respiratoria negativa", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 43
+#line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -314,47 +331,51 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table9 = new global::Reqnroll.Table(new string[] {
-                            "cuil",
-                            "apellido",
-                            "nombre",
-                            "obra social"});
-                table9.AddRow(new string[] {
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                            "Cuil",
+                            "Apellido",
+                            "Nombre",
+                            "ObraSocial"});
+                table11.AddRow(new string[] {
                             "20-4562556352-3",
                             "Perez",
                             "Maria",
                             "Swiss Medical"});
-                table9.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "20-4562556353-9",
                             "Gomez",
                             "Ana",
                             "Galeno"});
-#line 44
- await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table9, "Given ");
+#line 48
+ await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table11, "Given ");
 #line hidden
-                global::Reqnroll.Table table10 = new global::Reqnroll.Table(new string[] {
-                            "cuil",
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                            "Cuil",
                             "Informe",
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
                             "Frecuencia Respiratoria"});
-                table10.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "20-4562556353-9",
                             "Tiene gripe",
                             "Emergencia",
                             "38",
                             "70",
                             "-15"});
-#line 48
- await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table10, "When ");
+#line 52
+ await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table12, "When ");
 #line hidden
-#line 51
+#line 55
  await testRunner.ThenAsync("se informa que la frecuencia respiratorio se cargo de forma incorrecta \"La frecue" +
                         "ncia respiratoria no puede ser un valor negativo\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 52
- await testRunner.AndAsync("no se agrega a la lista de espera de guardia", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                            "Cuil"});
+                table13.AddRow(new string[] {
+                            "20-4562556353-9"});
+#line 56
+ await testRunner.AndAsync("La lista de espera no contendrá el cuil:", ((string)(null)), table13, "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -371,7 +392,7 @@ await this.FeatureBackgroundAsync();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
                     "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 54
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -384,66 +405,66 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "apellido",
                             "nombre",
                             "obra social"});
-                table11.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "20-4562556352-3",
                             "Perez",
                             "Maria",
                             "Swiss Medical"});
-                table11.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "20-4562556353-9",
                             "Gomez",
                             "Ana",
                             "Galeno"});
-                table11.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "20-4562556351-4",
                             "Auchana",
                             "Leonel",
                             "OSDE"});
-#line 55
- await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table11, "Given ");
+#line 61
+ await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table14, "Given ");
 #line hidden
-                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
                             "Nivel de Emergencia",
                             "cuil",
                             "nombre",
                             "apellido"});
-                table12.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Emergencia",
                             "20-4562556353-9",
                             "Ana",
                             "Gomez"});
-#line 60
- await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table12, "And ");
+#line 66
+ await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table15, "And ");
 #line hidden
-                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "Informe",
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
                             "Frecuencia Respiratoria"});
-                table13.AddRow(new string[] {
+                table16.AddRow(new string[] {
                             "20-4562556351-4",
                             "apuñalada",
                             "Critico",
                             "38",
                             "70",
                             "15"});
-#line 63
- await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table13, "When ");
+#line 69
+ await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table16, "When ");
 #line hidden
-                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
                             "20-4562556351-4"});
-                table14.AddRow(new string[] {
+                table17.AddRow(new string[] {
                             "20-4562556353-9"});
-#line 66
+#line 72
  await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table14, "Then ");
+                        "te manera:", ((string)(null)), table17, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -460,7 +481,7 @@ await this.FeatureBackgroundAsync();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
                     "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 70
+#line 76
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -473,66 +494,66 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "apellido",
                             "nombre",
                             "obra social"});
-                table15.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "20-4562556352-3",
                             "Perez",
                             "Maria",
                             "Swiss Medical"});
-                table15.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "20-4562556353-9",
                             "Gomez",
                             "Ana",
                             "Galeno"});
-                table15.AddRow(new string[] {
+                table18.AddRow(new string[] {
                             "20-4562556351-4",
                             "Auchana",
                             "Leonel",
                             "OSDE"});
-#line 71
- await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table15, "Given ");
+#line 77
+ await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table18, "Given ");
 #line hidden
-                global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
                             "Nivel de Emergencia",
                             "cuil",
                             "nombre",
                             "apellido"});
-                table16.AddRow(new string[] {
+                table19.AddRow(new string[] {
                             "Emergencia",
                             "20-4562556353-9",
                             "Ana",
                             "Gomez"});
-#line 76
- await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table16, "And ");
+#line 82
+ await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table19, "And ");
 #line hidden
-                global::Reqnroll.Table table17 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "Informe",
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
                             "Frecuencia Respiratoria"});
-                table17.AddRow(new string[] {
+                table20.AddRow(new string[] {
                             "20-4562556351-4",
                             "dolor de estomago",
                             "urgencia menor",
                             "38",
                             "70",
                             "15"});
-#line 79
- await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table17, "When ");
+#line 85
+ await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table20, "When ");
 #line hidden
-                global::Reqnroll.Table table18 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
                             "20-4562556353-9"});
-                table18.AddRow(new string[] {
+                table21.AddRow(new string[] {
                             "20-4562556351-4"});
-#line 82
+#line 88
  await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table18, "Then ");
+                        "te manera:", ((string)(null)), table21, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -549,7 +570,7 @@ await this.FeatureBackgroundAsync();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
                     "a lista de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 86
+#line 92
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -562,66 +583,66 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
 await this.FeatureBackgroundAsync();
 #line hidden
-                global::Reqnroll.Table table19 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "apellido",
                             "nombre",
                             "obra social"});
-                table19.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "20-4562556352-3",
                             "Perez",
                             "Maria",
                             "Swiss Medical"});
-                table19.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "20-4562556353-9",
                             "Gomez",
                             "Ana",
                             "Galeno"});
-                table19.AddRow(new string[] {
+                table22.AddRow(new string[] {
                             "20-4562556351-4",
                             "Auchana",
                             "Leonel",
                             "OSDE"});
-#line 87
- await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table19, "Given ");
+#line 93
+ await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table22, "Given ");
 #line hidden
-                global::Reqnroll.Table table20 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table23 = new global::Reqnroll.Table(new string[] {
                             "Nivel de Emergencia",
                             "cuil",
                             "nombre",
                             "apellido"});
-                table20.AddRow(new string[] {
+                table23.AddRow(new string[] {
                             "Emergencia",
                             "20-4562556353-9",
                             "Ana",
                             "Gomez"});
-#line 92
- await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table20, "And ");
+#line 98
+ await testRunner.AndAsync("que esta es la lista de espera de guardia actual ordenada por nivel:", ((string)(null)), table23, "And ");
 #line hidden
-                global::Reqnroll.Table table21 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table24 = new global::Reqnroll.Table(new string[] {
                             "cuil",
                             "Informe",
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
                             "Frecuencia Respiratoria"});
-                table21.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "20-4562556351-4",
                             "caida",
                             "Emergencia",
                             "38",
                             "70",
                             "15"});
-#line 95
- await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table21, "When ");
+#line 101
+ await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table24, "When ");
 #line hidden
-                global::Reqnroll.Table table22 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
                             "20-4562556353-9"});
-                table22.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "20-4562556351-4"});
-#line 98
+#line 104
  await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table22, "Then ");
+                        "te manera:", ((string)(null)), table25, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
