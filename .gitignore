@@ -2,4 +2,4 @@
 *.vsidx
 bin/
 obj/
-Ing_bdd/feature/*.cs
+IngSw_Bdd/Features/*.cs
