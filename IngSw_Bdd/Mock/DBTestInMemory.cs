@@ -9,8 +9,5 @@ public class DBTestInMemory : IDBTestInMemory
     {
         Patients!.Add(patient);
     }
-    public List<Patient>? GetPatients()
-    {
-        return Patients;
-    }
+    public List<Patient>? GetPatients() => Patients;
 }
