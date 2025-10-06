@@ -57,50 +57,55 @@ Scenario: Ingreso de un paciente frecuencia respiratoria negativa
 		| Cuil            |
 		| 20-4562556353-9 |
 
+@OrdenAscendente
 Scenario: Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
-		| cuil            | apellido | nombre | obra social   |
+		| Cuil            | Apellido | Nombre | ObraSocial    |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
-	And que esta es la lista de espera de guardia actual ordenada por nivel:
-		| Nivel de Emergencia | cuil            | nombre | apellido |
-		| Emergencia          | 20-4562556353-9 | Ana    | Gomez    |
+	And que la lista de espera actual ordenada por nivel es:
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
 	When ingreso a urgencias al siguiente paciente:
-		| cuil            | Informe   | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| Cuil            | Informe   | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
 		| 20-4562556351-4 | apuñalada | Critico             | 38          | 70                  | 15                      |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
+		| Cuil            |
 		| 20-4562556351-4 |
 		| 20-4562556353-9 |
 
+@OrdenDescendente
 Scenario: Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
-		| cuil            | apellido | nombre | obra social   |
+		| Cuil            | Apellido | Nombre | ObraSocial    |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
-	And que esta es la lista de espera de guardia actual ordenada por nivel:
-		| Nivel de Emergencia | cuil            | nombre | apellido |
-		| Emergencia          | 20-4562556353-9 | Ana    | Gomez    |
+	And que la lista de espera actual ordenada por nivel es:
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
 	When ingreso a urgencias al siguiente paciente:
-		| cuil            | Informe           | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556351-4 | dolor de estomago | urgencia menor      | 38          | 70                  | 15                      |
+		| Cuil            | Informe           | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556351-4 | dolor de estomago | URGENCIA_MENOR      | 38          | 70                  | 15                      |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
+		| Cuil            |
 		| 20-4562556353-9 |
 		| 20-4562556351-4 |
 
 Scenario: Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
-		| cuil            | apellido | nombre | obra social   |
+		| Cuil            | Apellido | Nombre | ObraSocial   |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
-	And que esta es la lista de espera de guardia actual ordenada por nivel:
-		| Nivel de Emergencia | cuil            | nombre | apellido |
-		| Emergencia          | 20-4562556353-9 | Ana    | Gomez    |
+	And que la lista de espera actual ordenada por nivel es:
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
 	When ingreso a urgencias al siguiente paciente:
-		| cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
 		| 20-4562556351-4 | caida   | Emergencia          | 38          | 70                  | 15                      |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
+		| Cuil            |
 		| 20-4562556353-9 |
 		| 20-4562556351-4 |
