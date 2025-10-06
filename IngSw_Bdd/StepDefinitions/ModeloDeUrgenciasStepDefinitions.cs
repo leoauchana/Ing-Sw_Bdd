@@ -116,5 +116,42 @@ namespace IngSw_Bdd.StepDefinitions
         {
             Assert.Equal(message, _emergencyModule.GetErrorMessage());
         }
+
+        //Scenary 5
+        [Given("que la lista de espera actual ordenada por nivel es:")]
+        public void GivenQueLaListaDeEsperaActualOrdenadaPorNivelEs(DataTable dataTable)
+        {
+            var patientsList = dataTable.Rows.FirstOrDefault();
+            if (patientsList == null)
+                throw new NullReferenceException("No se obtuvieron los datos de la lista de espera actual");
+            var cuilPatient = patientsList!["Cuil"];
+            var temperature = double.Parse(patientsList["Temperatura"]);
+            var report = patientsList["Informe"];
+            var emergencyLevel = patientsList["Nivel de Emergencia"];
+            var frequencyCardiac = double.Parse(patientsList["Frecuencia Cardiaca"]);
+            var frequencyRespiratory = double.Parse(patientsList["Frecuencia Respiratoria"]);
+            EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
+                patientsList["Nivel de Emergencia"], true, out var parsedLevel)
+                ? parsedLevel
+                : null;
+            _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                frequencyCardiac, frequencyRespiratory);
+        }
+
+        // Scenary 6
+        [Then("La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:")]
+        public void ThenLaListaDeEsperaEstaOrdenadaPorCuilConsiderandoLaPrioridadDeLaSiguienteManera(DataTable dataTable)
+        {
+            var cuilsListExpected = dataTable.Rows.Select(r => r["Cuil"]).ToList();
+            if (cuilsListExpected == null)
+                throw new NullReferenceException("No se obtuvo los cuil ordenados en la cola de espera");
+            var incomes = _emergencyModule.GetIncomes()!;
+            var cuilsEarrings = incomes
+                                .OrderBy(i => i.EmergencyLevel)
+                                .Select(i => i.Patient!.Cuil)
+                                .ToList();
+            Assert.Equal(cuilsListExpected, cuilsEarrings!);
+        }
+
     }
 }
