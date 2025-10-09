@@ -8,6 +8,8 @@ public class Income
     public string? Report {get; set;}
     public double FrequencyCardiac { get; set; }
     public double FrequencyRespiratory { get; set; }
+    public double FrequencySystolic { get; set; }
+    public double FrequencyDiastolic { get; set; }
     public StateIncome? StateIncome { get; set; }
     public EmergencyLevel? EmergencyLevel { get; set; }
 }
