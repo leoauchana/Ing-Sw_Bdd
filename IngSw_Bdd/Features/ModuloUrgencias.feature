@@ -13,8 +13,8 @@ Scenario: Ingreso del primer paciente a la lista de espera de urgencias
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Tiene gripe | Emergencia          | 38          | 70                  | 15                      |
+		| Cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353-9 | Tiene gripe | Emergencia          | 38          | 70                  | 15                      | 120/80           |
 	Then La lista de espera esta ordenada por cuil de la siguiente manera:
 		| Cuil            |
 		| 20-4562556353-9 |
@@ -25,8 +25,8 @@ Scenario: Ingreso de un paciente sin registro previo a la lista de espera de urg
 		| Cuil            | Apellido | Nombre | ObraSocial |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE       |
 	And ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe      | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556351-4 | Tiene fiebre | Emergencia          | 39          | 70                  | 15                      |
+		| Cuil            | Informe      | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556351-4 | Tiene fiebre | Emergencia          | 39          | 70                  | 15                      | 120/80           |
 	Then La lista de espera esta ordenada por cuil de la siguiente manera:
 		| Cuil            |
 		| 20-4562556351-4 |
@@ -37,8 +37,8 @@ Scenario: Ingreso de un paciente con datos mandatorios faltantes
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil           | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353- | Tiene gripe |                     | 38          | 70                  | 15                      |
+		| Cuil           | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353- | Tiene gripe |                     | 38          | 70                  | 15                      | 120/80           |
 	Then se informa la falta del dato mandatario "Ingresar Nivel de Emergencia"
 	And La lista de espera no contendrá el cuil:
 		| Cuil            |
@@ -50,14 +50,13 @@ Scenario: Ingreso de un paciente frecuencia respiratoria negativa
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Tiene gripe | Emergencia          | 38          | 70                  | -15                     |
+		| Cuil            | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353-9 | Tiene gripe | Emergencia          | 38          | 70                  | -15                     | 120/80           |
 	Then se informa que la frecuencia respiratorio se cargo de forma incorrecta "La frecuencia respiratoria no puede ser un valor negativo"
 	And La lista de espera no contendrá el cuil:
 		| Cuil            |
 		| 20-4562556353-9 |
 
-@OrdenAscendente
 Scenario: Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
 		| Cuil            | Apellido | Nombre | ObraSocial    |
@@ -65,17 +64,18 @@ Scenario: Ingreso de un paciente con nivel de emergencia mayor a otro paciente y
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
 	And que la lista de espera actual ordenada por nivel es:
-		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
+		| Cuil            | Informe      | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353-9 | Fiebre       | Emergencia          | 39          | 71                  | 16                      | 120/80           |
+		| 20-4562556352-3 | Dolor de ojo | Urgencia            | 38          | 71                  | 16                      | 120/80           |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe   | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556351-4 | apuñalada | Critico             | 38          | 70                  | 15                      |
+		| Cuil            | Informe   | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556351-4 | apuñalada | Critico             | 38          | 70                  | 15                      | 120/80           |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
 		| Cuil            |
 		| 20-4562556351-4 |
 		| 20-4562556353-9 |
+		| 20-4562556352-3 |
 
-@OrdenDescendente
 Scenario: Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
 		| Cuil            | Apellido | Nombre | ObraSocial    |
@@ -83,11 +83,11 @@ Scenario: Ingreso de un paciente con nivel de emergencia menor a otro paciente y
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
 	And que la lista de espera actual ordenada por nivel es:
-		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      | 120/80           |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe           | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556351-4 | dolor de estomago | URGENCIA_MENOR      | 38          | 70                  | 15                      |
+		| Cuil            | Informe           | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556351-4 | dolor de estomago | URGENCIA_MENOR      | 38          | 70                  | 15                      | 120/80           |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
 		| Cuil            |
 		| 20-4562556353-9 |
@@ -95,17 +95,19 @@ Scenario: Ingreso de un paciente con nivel de emergencia menor a otro paciente y
 
 Scenario: Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en la lista de espera
 	Given que estan registrados los siguientes pacientes:
-		| Cuil            | Apellido | Nombre | ObraSocial   |
+		| Cuil            | Apellido | Nombre | ObraSocial    |
 		| 20-4562556352-3 | Perez    | Maria  | Swiss Medical |
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 		| 20-4562556351-4 | Auchana  | Leonel | OSDE          |
 	And que la lista de espera actual ordenada por nivel es:
-		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556353-9 | Fiebre  | Emergencia          | 39          | 71                  | 16                      |
+		| Cuil            | Informe      | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556353-9 | Fiebre       | Emergencia          | 39          | 71                  | 16                      | 120/80           |
+		| 20-4562556352-3 | Dolor de ojo | Urgencia            | 39          | 71                  | 16                      | 120/80           |
 	When ingreso a urgencias al siguiente paciente:
-		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria |
-		| 20-4562556351-4 | caida   | Emergencia          | 38          | 70                  | 15                      |
+		| Cuil            | Informe | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
+		| 20-4562556351-4 | caida   | Emergencia          | 38          | 70                  | 15                      | 120/80           |
 	Then La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:
 		| Cuil            |
 		| 20-4562556353-9 |
 		| 20-4562556351-4 |
+		| 20-4562556352-3 |

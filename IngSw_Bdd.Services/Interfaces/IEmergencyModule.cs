@@ -10,11 +10,12 @@ public interface IEmergencyModule
                                     string report,
                                     EmergencyLevel? emergencyLevel,
                                     double frequencyCardiac,
-                                    double frequencyRespiratory);
+                                    double frequencyRespiratory,
+                                    double frequencySystolic,
+                                    double frequencyDiastolic);
     void RegisterPatient(string cuil,
                                 string lastName, 
                                 string name, 
                                 string socialWork);
-    string GetErrorMessage();
     List<Income>? GetIncomes();
 }

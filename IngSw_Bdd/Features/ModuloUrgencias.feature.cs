@@ -153,14 +153,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table3.AddRow(new string[] {
                             "20-4562556353-9",
                             "Tiene gripe",
                             "Emergencia",
                             "38",
                             "70",
-                            "15"});
+                            "15",
+                            "120/80"});
 #line 15
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table3, "When ");
 #line hidden
@@ -218,14 +220,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table6.AddRow(new string[] {
                             "20-4562556351-4",
                             "Tiene fiebre",
                             "Emergencia",
                             "39",
                             "70",
-                            "15"});
+                            "15",
+                            "120/80"});
 #line 27
  await testRunner.AndAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table6, "And ");
 #line hidden
@@ -285,14 +289,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table9.AddRow(new string[] {
                             "20-4562556353-",
                             "Tiene gripe",
                             "",
                             "38",
                             "70",
-                            "15"});
+                            "15",
+                            "120/80"});
 #line 39
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table9, "When ");
 #line hidden
@@ -355,14 +361,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table12.AddRow(new string[] {
                             "20-4562556353-9",
                             "Tiene gripe",
                             "Emergencia",
                             "38",
                             "70",
-                            "-15"});
+                            "-15",
+                            "120/80"});
 #line 52
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table12, "When ");
 #line hidden
@@ -386,15 +394,13 @@ await this.FeatureBackgroundAsync();
         [Xunit.TraitAttribute("FeatureTitle", "Modelo de Urgencias")]
         [Xunit.TraitAttribute("Description", "Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
             "ta de espera")]
-        [Xunit.TraitAttribute("Category", "OrdenAscendente")]
         public async System.Threading.Tasks.Task IngresoDeUnPacienteConNivelDeEmergenciaMayorAOtroPacienteYaEnLaListaDeEspera()
         {
-            string[] tagsOfScenario = new string[] {
-                    "OrdenAscendente"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
                     "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 61
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -427,7 +433,7 @@ await this.FeatureBackgroundAsync();
                             "Auchana",
                             "Leonel",
                             "OSDE"});
-#line 62
+#line 61
  await testRunner.GivenAsync("que estan registrados los siguientes pacientes:", ((string)(null)), table14, "Given ");
 #line hidden
                 global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
@@ -436,15 +442,25 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table15.AddRow(new string[] {
                             "20-4562556353-9",
                             "Fiebre",
                             "Emergencia",
                             "39",
                             "71",
-                            "16"});
-#line 67
+                            "16",
+                            "120/80"});
+                table15.AddRow(new string[] {
+                            "20-4562556352-3",
+                            "Dolor de ojo",
+                            "Urgencia",
+                            "38",
+                            "71",
+                            "16",
+                            "120/80"});
+#line 66
  await testRunner.AndAsync("que la lista de espera actual ordenada por nivel es:", ((string)(null)), table15, "And ");
 #line hidden
                 global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
@@ -453,14 +469,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table16.AddRow(new string[] {
                             "20-4562556351-4",
                             "apuñalada",
                             "Critico",
                             "38",
                             "70",
-                            "15"});
+                            "15",
+                            "120/80"});
 #line 70
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table16, "When ");
 #line hidden
@@ -470,6 +488,8 @@ await this.FeatureBackgroundAsync();
                             "20-4562556351-4"});
                 table17.AddRow(new string[] {
                             "20-4562556353-9"});
+                table17.AddRow(new string[] {
+                            "20-4562556352-3"});
 #line 73
  await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
                         "te manera:", ((string)(null)), table17, "Then ");
@@ -483,11 +503,9 @@ await this.FeatureBackgroundAsync();
         [Xunit.TraitAttribute("FeatureTitle", "Modelo de Urgencias")]
         [Xunit.TraitAttribute("Description", "Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
             "ta de espera")]
-        [Xunit.TraitAttribute("Category", "OrdenDescendente")]
         public async System.Threading.Tasks.Task IngresoDeUnPacienteConNivelDeEmergenciaMenorAOtroPacienteYaEnLaListaDeEspera()
         {
-            string[] tagsOfScenario = new string[] {
-                    "OrdenDescendente"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
                     "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
@@ -533,14 +551,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table19.AddRow(new string[] {
                             "20-4562556353-9",
                             "Fiebre",
                             "Emergencia",
                             "39",
                             "71",
-                            "16"});
+                            "16",
+                            "120/80"});
 #line 85
  await testRunner.AndAsync("que la lista de espera actual ordenada por nivel es:", ((string)(null)), table19, "And ");
 #line hidden
@@ -550,14 +570,16 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table20.AddRow(new string[] {
                             "20-4562556351-4",
                             "dolor de estomago",
                             "URGENCIA_MENOR",
                             "38",
                             "70",
-                            "15"});
+                            "15",
+                            "120/80"});
 #line 88
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table20, "When ");
 #line hidden
@@ -628,14 +650,24 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table23.AddRow(new string[] {
                             "20-4562556353-9",
                             "Fiebre",
                             "Emergencia",
                             "39",
                             "71",
-                            "16"});
+                            "16",
+                            "120/80"});
+                table23.AddRow(new string[] {
+                            "20-4562556352-3",
+                            "Dolor de ojo",
+                            "Urgencia",
+                            "39",
+                            "71",
+                            "16",
+                            "120/80"});
 #line 102
  await testRunner.AndAsync("que la lista de espera actual ordenada por nivel es:", ((string)(null)), table23, "And ");
 #line hidden
@@ -645,15 +677,17 @@ await this.FeatureBackgroundAsync();
                             "Nivel de Emergencia",
                             "Temperatura",
                             "Frecuencia Cardiaca",
-                            "Frecuencia Respiratoria"});
+                            "Frecuencia Respiratoria",
+                            "Tension Arterial"});
                 table24.AddRow(new string[] {
                             "20-4562556351-4",
                             "caida",
                             "Emergencia",
                             "38",
                             "70",
-                            "15"});
-#line 105
+                            "15",
+                            "120/80"});
+#line 106
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table24, "When ");
 #line hidden
                 global::Reqnroll.Table table25 = new global::Reqnroll.Table(new string[] {
@@ -662,7 +696,9 @@ await this.FeatureBackgroundAsync();
                             "20-4562556353-9"});
                 table25.AddRow(new string[] {
                             "20-4562556351-4"});
-#line 108
+                table25.AddRow(new string[] {
+                            "20-4562556352-3"});
+#line 109
  await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
                         "te manera:", ((string)(null)), table25, "Then ");
 #line hidden

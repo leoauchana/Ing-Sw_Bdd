@@ -1,9 +1,6 @@
 using IngSw_Bdd.Domain.DbTest;
 using IngSw_Bdd.Domain.Entities;
 using IngSw_Bdd.Services.Interfaces;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using Reqnroll;
-using System;
 
 namespace IngSw_Bdd.StepDefinitions
 {
@@ -14,7 +11,7 @@ namespace IngSw_Bdd.StepDefinitions
         private readonly IEmergencyModule _emergencyModule;
         private Nurse? _nurse;
         private Patient? _patient;
-
+        private Exception? _exceptionExpected;
         public ModeloDeUrgenciasStepDefinitions(IDBTestInMemory dbTest, IEmergencyModule emergencyModule)
         {
             _dbTest = dbTest;
@@ -45,6 +42,7 @@ namespace IngSw_Bdd.StepDefinitions
         [When("ingreso a urgencias al siguiente paciente:")]
         public void WhenIngresoAUrgenciasAlSiguientePaciente(DataTable dataTable)
         {
+            _exceptionExpected = null;
             var patientData = dataTable.Rows.FirstOrDefault();
             if (patientData == null)
                 throw new NullReferenceException("No se obtuvieron los datos del ingreso del paciente");
@@ -58,8 +56,16 @@ namespace IngSw_Bdd.StepDefinitions
                 patientData["Nivel de Emergencia"], true, out var parsedLevel)
                 ? parsedLevel
                 : null;
-            _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
-                frequencyCardiac, frequencyRespiratory);
+            var (frequencySystolic, frequensyDiastolic) = (patientData["Tension Arterial"].Split('/') is var p) ? (double.Parse(p[0]), double.Parse(p[1])) : (0, 0);
+            try
+            {
+                _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                    frequencyCardiac, frequencyRespiratory, frequencySystolic, frequensyDiastolic);
+            }
+            catch (Exception e)
+            {
+                _exceptionExpected = e;
+            }
         }
 
         [Then("La lista de espera esta ordenada por cuil de la siguiente manera:")]
@@ -95,7 +101,7 @@ namespace IngSw_Bdd.StepDefinitions
         [Then("se informa la falta del dato mandatario {string}")]
         public void ThenSeInformaLaFaltaDelDatoMandatario(string message)
         {
-            Assert.Equal(message, _emergencyModule.GetErrorMessage());
+            Assert.Equal(message, _exceptionExpected!.Message);
         }
 
         [Then("La lista de espera no contendrá el cuil:")]
@@ -114,28 +120,34 @@ namespace IngSw_Bdd.StepDefinitions
         [Then("se informa que la frecuencia respiratorio se cargo de forma incorrecta {string}")]
         public void ThenSeInformaQueLaFrecuenciaRespiratorioSeCargoDeFormaIncorrecta(string message)
         {
-            Assert.Equal(message, _emergencyModule.GetErrorMessage());
+            Assert.Equal(message, _exceptionExpected!.Message);
         }
 
         //Scenary 5
         [Given("que la lista de espera actual ordenada por nivel es:")]
         public void GivenQueLaListaDeEsperaActualOrdenadaPorNivelEs(DataTable dataTable)
         {
-            var patientsList = dataTable.Rows.FirstOrDefault();
+            var patientsList = dataTable.Rows;
             if (patientsList == null)
                 throw new NullReferenceException("No se obtuvieron los datos de la lista de espera actual");
-            var cuilPatient = patientsList!["Cuil"];
-            var temperature = double.Parse(patientsList["Temperatura"]);
-            var report = patientsList["Informe"];
-            var emergencyLevel = patientsList["Nivel de Emergencia"];
-            var frequencyCardiac = double.Parse(patientsList["Frecuencia Cardiaca"]);
-            var frequencyRespiratory = double.Parse(patientsList["Frecuencia Respiratoria"]);
-            EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
-                patientsList["Nivel de Emergencia"], true, out var parsedLevel)
-                ? parsedLevel
-                : null;
-            _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
-                frequencyCardiac, frequencyRespiratory);
+            foreach (var patientRow in patientsList)
+            {
+                var cuilPatient = patientRow!["Cuil"];
+                var temperature = double.Parse(patientRow["Temperatura"]);
+                var report = patientRow["Informe"];
+                var emergencyLevel = patientRow["Nivel de Emergencia"];
+                var frequencyCardiac = double.Parse(patientRow["Frecuencia Cardiaca"]);
+                var frequencyRespiratory = double.Parse(patientRow["Frecuencia Respiratoria"]);
+                EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
+                    patientRow["Nivel de Emergencia"], true, out var parsedLevel)
+                    ? parsedLevel
+                    : null;
+                var (frequencySystolic, frequensyDiastolic) = (patientRow["Tension Arterial"].Split('/') is var p)
+                    ? (double.Parse(p[0]), double.Parse(p[1]))
+                    : (0, 0);
+                _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                    frequencyCardiac, frequencyRespiratory, frequencySystolic, frequensyDiastolic);
+            }
         }
 
         // Scenary 6
