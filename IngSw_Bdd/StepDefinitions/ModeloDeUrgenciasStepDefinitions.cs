@@ -49,7 +49,6 @@ namespace IngSw_Bdd.StepDefinitions
             var cuilPatient = patientData!["Cuil"];
             var temperature = double.Parse(patientData["Temperatura"]);
             var report = patientData["Informe"];
-            var emergencyLevel = patientData["Nivel de Emergencia"];
             var frequencyCardiac = double.Parse(patientData["Frecuencia Cardiaca"]);
             var frequencyRespiratory = double.Parse(patientData["Frecuencia Respiratoria"]);
             EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
@@ -59,7 +58,7 @@ namespace IngSw_Bdd.StepDefinitions
             var (frequencySystolic, frequensyDiastolic) = (patientData["Tension Arterial"].Split('/') is var p) ? (double.Parse(p[0]), double.Parse(p[1])) : (0, 0);
             try
             {
-                _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                _emergencyModule.RegisterEmergency(cuilPatient, _nurse!, temperature, report, level,
                     frequencyCardiac, frequencyRespiratory, frequencySystolic, frequensyDiastolic);
             }
             catch (Exception e)
@@ -93,7 +92,7 @@ namespace IngSw_Bdd.StepDefinitions
             _patient = dataTable.CreateSet<Patient>().FirstOrDefault();
             if (_patient == null)
                 throw new NullReferenceException("No se obtuvieron los datos del paciente para su registro");
-            _emergencyModule.RegisterPatient(_patient.Cuil, _patient.Apellido, _patient.Nombre, _patient.ObraSocial);
+            _emergencyModule.RegisterPatient(_patient.Cuil!, _patient.Apellido!, _patient.Nombre!, _patient.ObraSocial!);
         }
 
         // Scenary 3
@@ -113,7 +112,7 @@ namespace IngSw_Bdd.StepDefinitions
             var incomesList = _emergencyModule.GetIncomes();
             if (incomesList == null)
                 throw new NullReferenceException("La lista de ingresos es nula");
-            Assert.False(incomesList.Any(i => i.Patient.Cuil == expectedCuil["Cuil"]));
+            Assert.False(incomesList!.Any(i => i.Patient!.Cuil == expectedCuil["Cuil"]));
         }
 
         // Scenary 4 
@@ -135,7 +134,6 @@ namespace IngSw_Bdd.StepDefinitions
                 var cuilPatient = patientRow!["Cuil"];
                 var temperature = double.Parse(patientRow["Temperatura"]);
                 var report = patientRow["Informe"];
-                var emergencyLevel = patientRow["Nivel de Emergencia"];
                 var frequencyCardiac = double.Parse(patientRow["Frecuencia Cardiaca"]);
                 var frequencyRespiratory = double.Parse(patientRow["Frecuencia Respiratoria"]);
                 EmergencyLevel? level = Enum.TryParse<EmergencyLevel>(
@@ -145,7 +143,7 @@ namespace IngSw_Bdd.StepDefinitions
                 var (frequencySystolic, frequensyDiastolic) = (patientRow["Tension Arterial"].Split('/') is var p)
                     ? (double.Parse(p[0]), double.Parse(p[1]))
                     : (0, 0);
-                _emergencyModule.RegisterEmergency(cuilPatient, _nurse, temperature, report, level,
+                _emergencyModule.RegisterEmergency(cuilPatient, _nurse!, temperature, report, level,
                     frequencyCardiac, frequencyRespiratory, frequencySystolic, frequensyDiastolic);
             }
         }
