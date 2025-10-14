@@ -26,8 +26,8 @@ namespace IngSw_Bdd.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Modelo de Urgencias", "    Esta feature esta relacionada al registro de ingresos de pacientes en la sala" +
-                " \r\n    de urgencias respetando su nivel de preioridad y el horario de llegada.", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Modelo de Urgencias", ("    Esta feature esta relacionada al registro de ingresos de pacientes en la sala" +
+                " \r\n    de urgencias respetando su nivel de preioridad y el horario de llegada."), global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -375,8 +375,8 @@ await this.FeatureBackgroundAsync();
  await testRunner.WhenAsync("ingreso a urgencias al siguiente paciente:", ((string)(null)), table12, "When ");
 #line hidden
 #line 55
- await testRunner.ThenAsync("se informa que la frecuencia respiratorio se cargo de forma incorrecta \"La frecue" +
-                        "ncia respiratoria no puede ser un valor negativo\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync(("se informa que la frecuencia respiratorio se cargo de forma incorrecta \"La frecue" +
+                        "ncia respiratoria no puede ser un valor negativo\""), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
                 global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
                             "Cuil"});
@@ -389,17 +389,17 @@ await this.FeatureBackgroundAsync();
             await this.ScenarioCleanupAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
-            "ta de espera")]
+        [Xunit.SkippableFactAttribute(DisplayName=("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
+            "ta de espera"))]
         [Xunit.TraitAttribute("FeatureTitle", "Modelo de Urgencias")]
-        [Xunit.TraitAttribute("Description", "Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
-            "ta de espera")]
+        [Xunit.TraitAttribute("Description", ("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
+            "ta de espera"))]
         public async System.Threading.Tasks.Task IngresoDeUnPacienteConNivelDeEmergenciaMayorAOtroPacienteYaEnLaListaDeEspera()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
-                    "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo(("Ingreso de un paciente con nivel de emergencia mayor a otro paciente ya en la lis" +
+                    "ta de espera"), null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -491,24 +491,24 @@ await this.FeatureBackgroundAsync();
                 table17.AddRow(new string[] {
                             "20-4562556352-3"});
 #line 73
- await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table17, "Then ");
+ await testRunner.ThenAsync(("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
+                        "te manera:"), ((string)(null)), table17, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
-            "ta de espera")]
+        [Xunit.SkippableFactAttribute(DisplayName=("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
+            "ta de espera"))]
         [Xunit.TraitAttribute("FeatureTitle", "Modelo de Urgencias")]
-        [Xunit.TraitAttribute("Description", "Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
-            "ta de espera")]
+        [Xunit.TraitAttribute("Description", ("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
+            "ta de espera"))]
         public async System.Threading.Tasks.Task IngresoDeUnPacienteConNivelDeEmergenciaMenorAOtroPacienteYaEnLaListaDeEspera()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
-                    "ta de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo(("Ingreso de un paciente con nivel de emergencia menor a otro paciente ya en la lis" +
+                    "ta de espera"), null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 79
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -590,24 +590,24 @@ await this.FeatureBackgroundAsync();
                 table21.AddRow(new string[] {
                             "20-4562556351-4"});
 #line 91
- await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table21, "Then ");
+ await testRunner.ThenAsync(("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
+                        "te manera:"), ((string)(null)), table21, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
-            "a lista de espera")]
+        [Xunit.SkippableFactAttribute(DisplayName=("Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
+            "a lista de espera"))]
         [Xunit.TraitAttribute("FeatureTitle", "Modelo de Urgencias")]
-        [Xunit.TraitAttribute("Description", "Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
-            "a lista de espera")]
+        [Xunit.TraitAttribute("Description", ("Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
+            "a lista de espera"))]
         public async System.Threading.Tasks.Task IngresoDeUnPacienteConElMismoNivelDeEmergenciaQueOtroPacienteYaEnLaListaDeEspera()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
-                    "a lista de espera", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo(("Ingreso de un paciente con el mismo nivel de emergencia que otro paciente ya en l" +
+                    "a lista de espera"), null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 96
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -699,8 +699,8 @@ await this.FeatureBackgroundAsync();
                 table25.AddRow(new string[] {
                             "20-4562556352-3"});
 #line 109
- await testRunner.ThenAsync("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
-                        "te manera:", ((string)(null)), table25, "Then ");
+ await testRunner.ThenAsync(("La lista de espera esta ordenada por cuil considerando la prioridad de la siguien" +
+                        "te manera:"), ((string)(null)), table25, "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

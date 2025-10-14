@@ -1,0 +1,29 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ "feature-implementacion" ]
+  pull_request:
+    branches: [ "feature-implementacion" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restaurar dependencias
+      run: dotnet restore
+
+    - name: Compilar la solución
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Ejecutar pruebas unitarias
+      run: dotnet test --no-build --verbosity normal
