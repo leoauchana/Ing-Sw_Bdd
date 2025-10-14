@@ -292,7 +292,7 @@ await this.FeatureBackgroundAsync();
                             "Frecuencia Respiratoria",
                             "Tension Arterial"});
                 table9.AddRow(new string[] {
-                            "20-4562556353-",
+                            "20-4562556353-9",
                             "Tiene gripe",
                             "",
                             "38",

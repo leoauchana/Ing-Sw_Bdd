@@ -3,5 +3,5 @@
 public class Nurse
 {
     public string? Nombre { get; set; }
-    public string? Aepllido { get; set; }
+    public string? Apellido { get; set; }
 }

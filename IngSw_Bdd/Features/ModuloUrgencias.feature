@@ -38,7 +38,7 @@ Scenario: Ingreso de un paciente con datos mandatorios faltantes
 		| 20-4562556353-9 | Gomez    | Ana    | Galeno        |
 	When ingreso a urgencias al siguiente paciente:
 		| Cuil           | Informe     | Nivel de Emergencia | Temperatura | Frecuencia Cardiaca | Frecuencia Respiratoria | Tension Arterial |
-		| 20-4562556353- | Tiene gripe |                     | 38          | 70                  | 15                      | 120/80           |
+		| 20-4562556353-9 | Tiene gripe |                     | 38          | 70                  | 15                      | 120/80           |
 	Then se informa la falta del dato mandatario "Ingresar Nivel de Emergencia"
 	And La lista de espera no contendrá el cuil:
 		| Cuil            |

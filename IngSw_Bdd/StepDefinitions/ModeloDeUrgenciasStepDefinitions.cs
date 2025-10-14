@@ -150,7 +150,6 @@ namespace IngSw_Bdd.StepDefinitions
             }
         }
 
-        // Scenary 6
         [Then("La lista de espera esta ordenada por cuil considerando la prioridad de la siguiente manera:")]
         public void ThenLaListaDeEsperaEstaOrdenadaPorCuilConsiderandoLaPrioridadDeLaSiguienteManera(DataTable dataTable)
         {
