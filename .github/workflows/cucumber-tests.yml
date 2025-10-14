@@ -1,4 +1,4 @@
-name: .NET CI
+name: Cucumber .NET
 
 on:
   push:
@@ -20,13 +20,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restaurar dependencias
-      run: dotnet restore
+      run: dotnet restore ./IngSw_Bdd/IngSw_Bdd.csproj
       working-directory: ./IngSw_Bdd
 
     - name: Compilar la solución
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./IngSw_Bdd/IngSw_Bdd.csproj --configuration Debug --no-restore
       working-directory: ./IngSw_Bdd
 
-    - name: Ejecutar pruebas unitarias
-      run: dotnet test --no-build --verbosity normal
+    - name: Ejecutar pruebas BDD
+      run: dotnet test ./IngSw_Bdd/IngSw_Bdd.csproj --configuration Debug --no-build --verbosity normal
       working-directory: ./IngSw_Bdd
