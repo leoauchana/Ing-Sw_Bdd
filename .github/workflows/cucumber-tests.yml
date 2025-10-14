@@ -21,9 +21,12 @@ jobs:
 
     - name: Restaurar dependencias
       run: dotnet restore
+      working-directory: ./IngSw_Bdd
 
     - name: Compilar la solución
       run: dotnet build --configuration Release --no-restore
+      working-directory: ./IngSw_Bdd
 
     - name: Ejecutar pruebas unitarias
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./IngSw_Bdd
